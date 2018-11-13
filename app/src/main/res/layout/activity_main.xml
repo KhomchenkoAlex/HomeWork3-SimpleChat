@@ -24,6 +24,7 @@
                 android:id="@+id/radio_button_A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:textSize="8sp"
                 android:text="@string/user_A"/>
             <RadioButton
