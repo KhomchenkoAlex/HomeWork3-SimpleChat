@@ -7,25 +7,21 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
-import com.example.android.simplechat.message.FirstUserMessage
 import com.example.android.simplechat.message.Message
-import com.example.android.simplechat.message.SecondUserMessage
 
 class MainActivity : AppCompatActivity() {
 
     private val messageList = mutableListOf<Message>()
     private val adapter = Adapter(messageList)
-    private var firstUserMessageCounter = 0
-    private var secondUserMessageCounter = 0
 
     private val editText by lazy { findViewById<EditText>(R.id.edit_text) }
-    private val radioGroup by lazy {findViewById<RadioGroup>(R.id.radio_group)}
+    private val radioGroup by lazy { findViewById<RadioGroup>(R.id.radio_group) }
+    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recycler_view) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(ItemDecorator())
@@ -34,15 +30,13 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val message = editText.text.toString()
             val user = getUser() ?: throw Exception("User not defined.")
-            addMessageItem(user, message)
-            updateUserCounter(user)
-            recyclerView.adapter.notifyItemInserted(messageList.size)
+            adapter.addMessageItem(user, message)
             editText.text.clear()
-       }
+        }
     }
 
     private fun getUser(): String? {
-       val checked = radioGroup.checkedRadioButtonId
+        val checked = radioGroup.checkedRadioButtonId
         var user: String? = null
         when (checked) {
             R.id.radio_button_A -> user = "UserA"
@@ -50,22 +44,4 @@ class MainActivity : AppCompatActivity() {
         }
         return user
     }
-
-    private fun addMessageItem(user: String, text: String){
-        var item: Message? = null
-        when (user){
-            "UserA" -> item = FirstUserMessage().apply {
-                this.user = user
-                this.messageText = text
-            }
-            "UserB" -> item = SecondUserMessage().apply {
-                this.user = user
-                this.messageText = text
-            }
-        }
-        messageList.add(item!!)
-    }
-   private fun removeMessageItem (message: Message) {
-       messageList.remove(message)
-   }
 }
