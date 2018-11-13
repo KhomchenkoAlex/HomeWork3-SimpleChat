@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleChat</string>
+    <string name="user_A">User A</string>
+    <string name="user_B">User B</string>
+    <string name="edit_text_hint">Type here...</string>
+    <string name="button">Send</string>
+</resources>
