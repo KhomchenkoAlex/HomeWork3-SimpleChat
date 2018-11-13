@@ -78,7 +78,6 @@ class Adapter(
             messageView.visibility = View.VISIBLE
             editView.visibility = View.GONE
             editView.text.clear()
-
         }
         notifyItemChanged(position)
     }

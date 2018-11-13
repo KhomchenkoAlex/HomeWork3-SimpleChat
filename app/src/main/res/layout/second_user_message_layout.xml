@@ -6,34 +6,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:paddingStart="10dp"
+        android:background="@drawable/second_user_rounded"
         android:paddingEnd="10dp"
-        android:background="@drawable/second_user_rounded">
+        android:paddingStart="10dp">
 
         <TextView
             android:id="@+id/sender_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="user"
             android:textSize="12sp" />
+
         <TextView
             android:id="@+id/message_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sender_view"
-            android:text="text"
             android:textSize="20sp" />
+
         <EditText
             android:id="@+id/edit_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sender_view"
-            android:visibility="gone"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
-
-
 
 </RelativeLayout>
