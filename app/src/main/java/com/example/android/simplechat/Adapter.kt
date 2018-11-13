@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.example.android.simplechat.message.FirstUserMessage
 import com.example.android.simplechat.message.Message
 import com.example.android.simplechat.message.SecondUserMessage
@@ -66,16 +66,34 @@ class Adapter(
         notifyItemRemoved(items.size)
     }
 
+    fun editMessageItem(position: Int, messageView: TextView, editView: EditText) {
+        messageView.visibility = View.GONE
+        editView.visibility = View.VISIBLE
+        editView.findFocus()
+        editView.text = messageView.editableText
+        editView.setOnClickListener {
+            var editedText = editView.editableText.toString()
+            if (editedText.isEmpty()) editedText = messageView.text.toString()
+            messageView.text = editedText
+            messageView.visibility = View.VISIBLE
+            editView.visibility = View.GONE
+            editView.text.clear()
+
+        }
+        notifyItemChanged(position)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
         val messageView = itemView.findViewById<TextView>(R.id.message_view)
         val senderView = itemView.findViewById<TextView>(R.id.sender_view)
+        val editView = itemView.findViewById<EditText>(R.id.edit_view)
 
         override fun onLongClick(view: View?): Boolean {
             val context = view?.context ?: throw Exception()
             AlertDialog.Builder(context)
                     .setTitle("What to do with this?")
                     .setNegativeButton("Delete") { dialog, which -> removeMessageItem(adapterPosition) }
-                    .setPositiveButton("Edit") { _, _ -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show() }
+                    .setPositiveButton("Edit") { dialog, which -> editMessageItem(adapterPosition, messageView, editView) }
                     .setNeutralButton("Cancel", null)
                     .show()
             return true
