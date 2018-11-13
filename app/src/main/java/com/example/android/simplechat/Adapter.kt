@@ -28,8 +28,7 @@ class Adapter(
         val inflater = LayoutInflater.from(parent?.context)
         val itemView = when (viewType) {
             firstUserView -> inflater.inflate(R.layout.first_user_message_layout, parent, false)
-            secondUserView -> inflater.inflate(R.layout.second_user_message_layout, parent, false)
-            else -> inflater.inflate(R.layout.header_layout, parent, false)
+            else -> inflater.inflate(R.layout.second_user_message_layout, parent, false)
         }
         return ViewHolder(itemView)
     }
